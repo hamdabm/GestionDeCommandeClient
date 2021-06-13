@@ -41,7 +41,7 @@ namespace GestionDeCommande.Controllers
         }
 
         [HttpPost("AddClient")]
-        public ActionResult<Client> AddClient([FromForm] Client clt)
+        public ActionResult<Client> AddClient( Client clt)
         {
             return clientService.Add(clt);
         }

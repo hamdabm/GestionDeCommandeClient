@@ -1,6 +1,7 @@
 ﻿
 using Domain.Models;
 using Persistence.GestionDeCommandeContext;
+using Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Services.Implementations
 {
-    public class CommandeLigneService
+    public class CommandeLigneService: IService<CommandeLigne>
     {
         private readonly DataContext _db;
 
@@ -17,9 +18,9 @@ namespace Services.Implementations
             _db = DataContext;
         }
 
-        public CommandeLigne AddCommandeLigne(CommandeLigne lig)
+        public CommandeLigne Add(CommandeLigne lig)
         {
-            try
+             try
             {
                 _db.CommandeLignes.Add(lig);
 
@@ -33,19 +34,9 @@ namespace Services.Implementations
             return lig;
         }
 
-        public List<CommandeLigne> GetCommandeLignes()
+        public bool Delete(int id)
         {
-            return _db.CommandeLignes.ToList();
-        }
-
-        public CommandeLigne GetCommandeLigneById(int id)
-        {
-            return _db.CommandeLignes.FirstOrDefault(c => c.IdCmdLigne == id);
-        }
-
-        public bool DeleteCommandeLigne(int id)
-        {
-            var lig = GetCommandeLigneById(id);
+           var lig = GetById(id);
 
             try
             {
@@ -60,7 +51,17 @@ namespace Services.Implementations
             }
         }
 
-        public CommandeLigne UpdateCommandeLigne(CommandeLigne lig)
+        public CommandeLigne GetById(int id)
+        {
+            return _db.CommandeLignes.FirstOrDefault(c => c.IdCmdLigne == id);
+        }
+
+        public List<CommandeLigne> Get()
+        {
+            return _db.CommandeLignes.ToList();
+        }
+
+        public CommandeLigne Update(CommandeLigne lig)
         {
             var ligDb = _db.CommandeLignes.FirstOrDefault(c => c.IdCmdLigne == lig.IdCmdLigne);
 
@@ -78,7 +79,6 @@ namespace Services.Implementations
             }
 
             return lig;
-
         }
     }
 }

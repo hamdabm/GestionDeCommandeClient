@@ -33,7 +33,7 @@ namespace GestionDeCommande.Controllers
         }
 
         [HttpPost("AddCommandeEntete")]
-        public ActionResult<CommandeEntete> AddCommandeEntete([FromForm] CommandeEntete cmde)
+        public ActionResult<CommandeEntete> AddCommandeEntete(CommandeEntete cmde)
         {
             return commandeEnteteService.AddCommandeEntete(cmde);
         }

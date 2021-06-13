@@ -34,7 +34,7 @@ namespace GestionDeCommande.Controllers
         }
 
         [HttpPost("AddCommandeLigne")]
-        public ActionResult<CommandeLigne> AddCommandeLigne([FromForm] CommandeLigne cmde)
+        public ActionResult<CommandeLigne> AddCommandeLigne( CommandeLigne cmde)
         {
             return commandeLigneService.AddCommandeLigne(cmde);
         }

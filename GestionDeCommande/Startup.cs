@@ -1,20 +1,14 @@
 using Domain.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Persistence.GestionDeCommandeContext;
 using Services.Implementations;
 using Services.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace GestionDeCommande
 {
@@ -42,8 +36,19 @@ namespace GestionDeCommande
 
             services.AddScoped<IService<Client>, ClientService>();
             services.AddScoped<IService<Produit>, ProduitService>();
-        }
 
+            services.AddScoped<IService<CommandeEntete>, CommandeEnteteService>();
+
+            services.AddScoped<IService<CommandeLigne>, CommandeLigneService>();
+            
+            services.AddCors(p =>
+            {
+                p.AddPolicy("CorsPolicy", policy =>
+                {
+                    policy.AllowAnyMethod().AllowAnyHeader().WithOrigins("http://localhost:4200");
+                });
+            });
+        }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -55,6 +60,8 @@ namespace GestionDeCommande
             }
 
             app.UseRouting();
+
+            app.UseCors("CorsPolicy");
 
             app.UseAuthorization();
 

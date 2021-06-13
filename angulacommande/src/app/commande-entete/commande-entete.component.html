@@ -1,0 +1,10 @@
+<form>
+    Numéro Commande : <br>
+    <input type="number" name="numeroCmd" id="numeroCmd" [(ngModel)]= "commandeEntete.numeroCmd"><br>
+    Date Commande : <br>
+    <input type="date" name="dateCmd" id="dateCmd" [(ngModel)]= "commandeEntete.dateCmd"><br>
+    <select>
+        <option></option>
+        <option *ngFor="let clt of tabClient" [value]="clt.cltId">{{clt.raisonSocial}}</option>
+    </select><br>
+  </form>

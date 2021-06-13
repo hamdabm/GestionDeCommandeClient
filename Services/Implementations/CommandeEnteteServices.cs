@@ -1,6 +1,7 @@
 ﻿
 using Domain.Models;
 using Persistence.GestionDeCommandeContext;
+using Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Services.Implementations
 {
-    public class CommandeEnteteService
+    public class CommandeEnteteService: IService<CommandeEntete>
     {
         private readonly DataContext _db;
 
@@ -17,9 +18,13 @@ namespace Services.Implementations
             _db = DataContext;
         }
 
-        public CommandeEntete AddCommandeEntete(CommandeEntete cde)
+
+    
+
+
+        public CommandeEntete Add(CommandeEntete cde)
         {
-            try
+             try
             {
                 _db.CommandeEntetes.Add(cde);
 
@@ -33,19 +38,9 @@ namespace Services.Implementations
             return cde;
         }
 
-        public List<CommandeEntete> GetCommandeEntetes()
+        public bool Delete(int id)
         {
-            return _db.CommandeEntetes.ToList();
-        }
-
-        public CommandeEntete GetCommandeEnteteById(int id)
-        {
-            return _db.CommandeEntetes.FirstOrDefault(c => c.IdCmdEnt == id);
-        }
-
-        public bool DeleteCommandeEntete(int id)
-        {
-            var cmde = GetCommandeEnteteById(id);
+           var cmde = GetById(id);
 
             try
             {
@@ -60,9 +55,19 @@ namespace Services.Implementations
             }
         }
 
-        public CommandeEntete UpdateCommandeEntete(CommandeEntete cmde)
+        public CommandeEntete GetById(int id)
         {
-            var cmdeDb = _db.CommandeEntetes.FirstOrDefault(c => c.IdCmdEnt == cmde.IdCmdEnt);
+            return _db.CommandeEntetes.FirstOrDefault(c => c.IdCmdEnt == id);
+        }
+
+        public List<CommandeEntete> Get()
+        {
+               return _db.CommandeEntetes.ToList();
+        }
+
+        public CommandeEntete Update(CommandeEntete cmde)
+        {
+                var cmdeDb = _db.CommandeEntetes.FirstOrDefault(c => c.IdCmdEnt == cmde.IdCmdEnt);
 
             try
             {
@@ -78,7 +83,6 @@ namespace Services.Implementations
             }
 
             return cmde;
-
         }
     }
 }

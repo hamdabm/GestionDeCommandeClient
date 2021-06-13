@@ -11,6 +11,7 @@ namespace Domain.Models
         [Key]
         public int CltId { get; set; }
         public string CodeClt { get; set; }
+       
         public string RaisonSocial { get; set; }
         public string Adresse { get; set; }
         public string Tel { get; set; }

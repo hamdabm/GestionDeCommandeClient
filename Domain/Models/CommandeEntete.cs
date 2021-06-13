@@ -16,8 +16,5 @@ namespace Domain.Models
         public Client Client { get; set; }
         public int IdClt { get; set; }
         public ICollection<CommandeLigne> CommandeLignes { get; set; }
-
-
-
     }
 }

@@ -19,6 +19,7 @@ namespace Services.Implementations
 
         public Client Add(Client clt)
         {
+
             try
             {
                 _db.Clients.Add(clt);
@@ -62,12 +63,14 @@ namespace Services.Implementations
 
         public Client Update(Client clt)
         {
-            var cltDb = _db.Clients.FirstOrDefault(c => c.CltId == clt.CltId);
-
             try
             {
-                cltDb = clt;
 
+                //_db.Entry(clt).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+
+                var cltDb = _db.Clients.FirstOrDefault(c => c.CltId == clt.CltId);
+                _db.Entry(cltDb).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
+                _db.Entry(clt).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                 _db.SaveChanges();
             }
             catch (Exception e)

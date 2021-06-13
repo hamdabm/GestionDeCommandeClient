@@ -1,0 +1,22 @@
+<table class="table">
+    <thead>
+      <tr>
+        <th>codeProd</th>
+        <th>designationProd</th> 
+        <th>prixProd</th>
+         <th>quantiteProd</th> 
+        <!--<th>Modifier</th>-->
+        <!--<th>Delete</th>-->
+      </tr>
+    </thead>
+    
+      <tbody>
+        <tr *ngFor="let u of tabProduit">
+          <td>{{ u.codeProd }}</td>
+          <td>{{ u.designationProd }}</td>
+          <td>{{ u.prixProd }}</td>
+          <td>{{ u.quantiteProd }}</td>
+    
+        </tr>
+      </tbody>
+    </table> 

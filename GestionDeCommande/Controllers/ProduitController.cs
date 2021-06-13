@@ -32,7 +32,7 @@ namespace GestionDeCommande.Controllers
             }
 
             [HttpPost("AddProduit")]
-            public ActionResult<Produit> AddProduit([FromForm] Produit prod)
+            public ActionResult<Produit> AddProduit( Produit prod)
             {
                 return produitService.Add(prod);
             }

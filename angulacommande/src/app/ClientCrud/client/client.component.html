@@ -1,0 +1,19 @@
+<table class="table">
+    <thead>
+      <tr>
+        <th>Code client</th>
+        <th>Raison Social</th> 
+        <th>Adreese</th>
+        <th>Téléphone</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let u of tabClient">
+        <td>{{ u.codeClt }}</td>
+        <td>{{ u.raisonSocial }}</td>
+        <td>{{ u.adresse }}</td>
+        <td>{{ u.tel }}</td>
+  
+      </tr>
+    </tbody>
+  </table> 
