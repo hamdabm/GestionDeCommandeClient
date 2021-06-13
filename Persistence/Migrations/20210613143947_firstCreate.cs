@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Persistence.Migrations
 {
-    public partial class first : Migration
+    public partial class firstCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -50,7 +50,7 @@ namespace Persistence.Migrations
                     NumeroCmd = table.Column<string>(type: "text", nullable: true),
                     MontantTot = table.Column<decimal>(type: "numeric", nullable: false),
                     ClientCltId = table.Column<int>(type: "integer", nullable: true),
-                    IdClt = table.Column<int>(type: "integer", nullable: false)
+                    CltId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {

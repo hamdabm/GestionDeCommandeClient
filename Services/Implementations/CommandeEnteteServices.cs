@@ -67,13 +67,17 @@ namespace Services.Implementations
 
         public CommandeEntete Update(CommandeEntete cmde)
         {
-                var cmdeDb = _db.CommandeEntetes.FirstOrDefault(c => c.IdCmdEnt == cmde.IdCmdEnt);
+                
 
             try
             {
-                cmdeDb = cmde;
+                  //_db.Entry(clt).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
 
+                var cmdeDb = _db.CommandeEntetes.FirstOrDefault(c => c.IdCmdEnt == cmde.IdCmdEnt);
+                _db.Entry(cmdeDb).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
+                _db.Entry(cmde).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                 _db.SaveChanges();
+            
             }
             catch (Exception e)
             {

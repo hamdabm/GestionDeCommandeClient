@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Domain.Models;
 using Microsoft.AspNetCore.Mvc;
-using Services.Implementations;
+using Services.Interfaces;
 
 namespace GestionDeCommande.Controllers
 {
@@ -11,17 +11,17 @@ namespace GestionDeCommande.Controllers
     [ApiController]
     public class CommandeEnteteController : ControllerBase
     {
-        private readonly CommandeEnteteService commandeEnteteService;
+        private readonly IService<CommandeEntete> _commandeEnteteService;
 
-        public CommandeEnteteController(CommandeEnteteService CommandeEnteteService)
+        public CommandeEnteteController(IService<CommandeEntete> commandeEnteteService)
         {
-            commandeEnteteService = CommandeEnteteService;
+            this._commandeEnteteService = commandeEnteteService;
         }
 
         [HttpGet]
         public List<CommandeEntete> GetCommandeEntete()
         {
-            return commandeEnteteService.GetCommandeEntetes();
+            return _commandeEnteteService.Get();
         }
 
         // [Route("/GetCommandeEntete/{id}")]
@@ -29,27 +29,27 @@ namespace GestionDeCommande.Controllers
         [HttpGet("{id}", Name = "GetCommandeEntete")]
         public CommandeEntete GetCommandeEntete(int id)
         {
-            return commandeEnteteService.GetCommandeEnteteById(id);
+            return _commandeEnteteService.GetById(id);
         }
 
         [HttpPost("AddCommandeEntete")]
         public ActionResult<CommandeEntete> AddCommandeEntete(CommandeEntete cmde)
         {
-            return commandeEnteteService.AddCommandeEntete(cmde);
+            return _commandeEnteteService.Add(cmde);
         }
 
         [Route("DeleteCommandeEntete/{id}")]
         [HttpDelete]
         public bool DeleteCommandeEntete(int id)
         {
-            return commandeEnteteService.DeleteCommandeEntete(id);
+            return _commandeEnteteService.Delete(id);
         }
 
         [Route("UpdateCommandeEntete")]
         [HttpPut]
         public CommandeEntete UpdateCommandeEntete(CommandeEntete cmde)
         {
-            return commandeEnteteService.UpdateCommandeEntete(cmde);
+            return _commandeEnteteService.Update(cmde);
         }
 
     }

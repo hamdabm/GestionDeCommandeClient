@@ -53,11 +53,11 @@ namespace Persistence.Migrations
                     b.Property<int?>("ClientCltId")
                         .HasColumnType("integer");
 
+                    b.Property<int>("CltId")
+                        .HasColumnType("integer");
+
                     b.Property<DateTime>("DateCmd")
                         .HasColumnType("timestamp without time zone");
-
-                    b.Property<int>("IdClt")
-                        .HasColumnType("integer");
 
                     b.Property<decimal>("MontantTot")
                         .HasColumnType("numeric");

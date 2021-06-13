@@ -14,7 +14,7 @@ namespace Domain.Models
         public string NumeroCmd { get; set; }
         public decimal MontantTot { get; set; }
         public Client Client { get; set; }
-        public int IdClt { get; set; }
+        public int CltId { get; set; }
         public ICollection<CommandeLigne> CommandeLignes { get; set; }
     }
 }

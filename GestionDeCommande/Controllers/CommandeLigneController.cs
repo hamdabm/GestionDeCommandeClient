@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Domain.Models;
 using Microsoft.AspNetCore.Mvc;
-using Services.Implementations;
+using Services.Interfaces;
 
 namespace GestionDeCommande.Controllers
 {
@@ -12,17 +11,17 @@ namespace GestionDeCommande.Controllers
     [ApiController]
     public class CommandeLigneController : ControllerBase
     {
-        private readonly CommandeLigneService commandeLigneService;
+        private readonly IService<CommandeLigne> _commandeLigneService;
 
-        public CommandeLigneController(CommandeLigneService CommandeLigneService)
+        public CommandeLigneController(IService<CommandeLigne> commandeLigneService)
         {
-            commandeLigneService = CommandeLigneService;
+            this._commandeLigneService = commandeLigneService;
         }
 
         [HttpGet]
         public List<CommandeLigne> GetCommandeLigne()
         {
-            return commandeLigneService.GetCommandeLignes();
+            return _commandeLigneService.Get();
         }
 
         // [Route("/GetCommandeLigne/{id}")]
@@ -30,27 +29,27 @@ namespace GestionDeCommande.Controllers
         [HttpGet("{id}", Name = "GetCommandeLigne")]
         public CommandeLigne GetCommandeLigne(int id)
         {
-            return commandeLigneService.GetCommandeLigneById(id);
+            return _commandeLigneService.GetById(id);
         }
 
         [HttpPost("AddCommandeLigne")]
-        public ActionResult<CommandeLigne> AddCommandeLigne( CommandeLigne cmde)
+        public ActionResult<CommandeLigne> AddCommandeLigne( CommandeLigne cmdlig)
         {
-            return commandeLigneService.AddCommandeLigne(cmde);
+            return _commandeLigneService.Add(cmdlig);
         }
 
         [Route("DeleteCommandeLigne/{id}")]
         [HttpDelete]
         public bool DeleteCommandeLigne(int id)
         {
-            return commandeLigneService.DeleteCommandeLigne(id);
+            return _commandeLigneService.Delete(id);
         }
 
         [Route("UpdateCommandeLigne")]
         [HttpPut]
         public CommandeLigne UpdateCommandeLigne(CommandeLigne cmde)
         {
-            return commandeLigneService.UpdateCommandeLigne(cmde);
+            return _commandeLigneService.Update(cmde);
         }
 
     }

@@ -5,7 +5,6 @@ using Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Services.Implementations
 {
@@ -63,13 +62,16 @@ namespace Services.Implementations
 
         public CommandeLigne Update(CommandeLigne lig)
         {
-            var ligDb = _db.CommandeLignes.FirstOrDefault(c => c.IdCmdLigne == lig.IdCmdLigne);
-
+           
             try
             {
-                ligDb = lig;
+                  //_db.Entry(clt).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
 
+                var cmdligDb = _db.CommandeEntetes.FirstOrDefault(c => c.IdCmdEnt == lig.IdCmdEnt);
+                _db.Entry(cmdligDb).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
+                _db.Entry(lig).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                 _db.SaveChanges();
+            
             }
             catch (Exception e)
             {
